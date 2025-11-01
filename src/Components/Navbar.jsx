@@ -112,7 +112,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav text-uppercase fw-semibold">
             {[
-              { label: "Home", id: "home" },
+              { label: "Home", id: "hero" },
               { label: "Rooms", path: "/rooms" },
               { label: "Amenities", id: "amenities" },
               { label: "Gallery", id: "gallery" },
