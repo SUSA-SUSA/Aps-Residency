@@ -24,9 +24,10 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Smooth scroll logic
+  // Smooth scroll to section
   const scrollToSection = (id) => {
     if (location.pathname !== "/") {
+      // Go to home page and include hash
       window.location.href = `/#${id}`;
       return;
     }
@@ -115,21 +116,20 @@ const Navbar = () => {
           <ul className="navbar-nav text-uppercase fw-semibold">
             {[
               { label: "Home", id: "home" },
-              { label: "Rooms", id: "rooms", isPage: true }, // <-- FIXED ✅
+              { label: "Rooms", path: "/rooms" },
               { label: "Amenities", id: "amenities" },
               { label: "Gallery", id: "gallery" },
               { label: "Contact", id: "contact" },
             ].map((item) => (
-              <li key={item.id} className="nav-item">
-                {item.isPage ? (
-                  // 🏨 Rooms page link (works in GitHub Pages)
+              <li key={item.label} className="nav-item">
+                {item.path ? (
+                  // 🏨 Link to rooms page
                   <Link
-                    to="/rooms"
+                    to={item.path}
                     className="nav-link"
                     style={{
                       ...navItemStyle,
                       color: header || isMobile ? "#000" : "#fff",
-                      textDecoration: "none",
                     }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={(e) =>
@@ -151,7 +151,7 @@ const Navbar = () => {
                     ></span>
                   </Link>
                 ) : (
-                  // 🏡 Scroll to section
+                  // 🏡 Scroll or redirect to home and scroll
                   <span
                     onClick={() => scrollToSection(item.id)}
                     className="nav-link"
