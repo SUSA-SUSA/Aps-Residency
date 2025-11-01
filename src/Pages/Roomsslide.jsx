@@ -153,7 +153,7 @@ const prevImage = () => {
     const [i, setI] = useState(0);
 
     return (
-      <div className="position-relative text-center">
+      <div id="rooms" className="position-relative text-center">
         <img
           src={images[i]}
           alt=""

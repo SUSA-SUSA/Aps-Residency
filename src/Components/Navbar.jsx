@@ -117,7 +117,7 @@ const Navbar = () => {
           <ul className="navbar-nav text-uppercase fw-semibold">
   {[
     { label: "Home", id: "home" },
-    { label: "Rooms", id: "rooms", isPage: true }, // 🔸 mark as a page
+    { label: "Rooms", id: "rooms" }, // 🔸 mark as a page
     { label: "Amenities", id: "amenities" },
     { label: "Gallery", id: "gallery" },
     { label: "Contact", id: "contact" },
