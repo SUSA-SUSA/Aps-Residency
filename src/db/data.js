@@ -1,0 +1,32 @@
+// export const rooms = [
+//   {
+//     id: 'standard-room',
+//     title: 'Standard Room',
+//     description: 'A cozy room with all the basic amenities.',
+//     price: 100,
+//     size: '250 sq ft',
+//     maxGuests: 2,
+//     view: 'City View',
+//     image: '../assets/standard-room.jpg',
+//   },
+//   {
+//     id: 'deluxe-room',
+//     title: 'Deluxe Room',
+//     description: 'A more spacious room with a beautiful view.',
+//     price: 150,
+//     size: '350 sq ft',
+//     maxGuests: 3,
+//     view: 'Ocean View',
+//     image: '/src/assets/deluxe-room.jpg',
+//   },
+//   {
+//     id: 'suite-room',
+//     title: 'Suite',
+//     description: 'A luxurious suite with a separate living area.',
+//     price: 250,
+//     size: '500 sq ft',
+//     maxGuests: 4,
+//     view: 'Mountain View',
+//     image: '/src/assets/suite-room.jpg',
+//   },
+// ];
