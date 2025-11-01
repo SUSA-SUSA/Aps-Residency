@@ -24,10 +24,10 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Scroll to section or redirect to home
+  // Scroll to section or redirect to home
   const scrollToSection = (id) => {
     if (location.pathname !== "/") {
-      // If not on home, redirect to home with hash
+      // if user is not on home, go to home with section hash
       window.location.href = `/#${id}`;
       return;
     }
@@ -115,7 +115,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav text-uppercase fw-semibold">
             {[
-              { label: "Home", id: "home" },
+              { label: "Home", id: "hero" },
               { label: "Rooms", path: "/rooms" },
               { label: "Amenities", id: "amenities" },
               { label: "Gallery", id: "gallery" },
@@ -123,7 +123,7 @@ const Navbar = () => {
             ].map((item) => (
               <li key={item.label} className="nav-item">
                 {item.path ? (
-                  // 🏨 Rooms page
+                  // 🏨 If it's Rooms link
                   <Link
                     to={item.path}
                     className={`nav-link ${
@@ -153,33 +153,64 @@ const Navbar = () => {
                     ></span>
                   </Link>
                 ) : (
-                  // 🏡 Scroll to home sections (works from any page)
-                  <span
-                    onClick={() => scrollToSection(item.id)}
-                    className="nav-link"
-                    style={{
-                      ...navItemStyle,
-                      color: header || isMobile ? "#000" : "#fff",
-                    }}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={(e) =>
-                      handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
-                    }
-                  >
-                    {item.label}
-                    <span
+                  // 🏡 All other links
+                  location.pathname === "/rooms" ? (
+                    // 🟡 When on Rooms page: redirect to home
+                    <Link
+                      to="/"
+                      className="nav-link"
                       style={{
-                        position: "absolute",
-                        bottom: "0",
-                        left: "0",
-                        height: "2px",
-                        width: "var(--underline-width, 0%)",
-                        backgroundColor: "#A37D4C",
-                        transition: "width 0.3s ease",
-                        display: "block",
+                        ...navItemStyle,
+                        color: header || isMobile ? "#000" : "#fff",
                       }}
-                    ></span>
-                  </span>
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={(e) =>
+                        handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
+                      }
+                    >
+                      {item.label}
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: "0",
+                          left: "0",
+                          height: "2px",
+                          width: "var(--underline-width, 0%)",
+                          backgroundColor: "#A37D4C",
+                          transition: "width 0.3s ease",
+                          display: "block",
+                        }}
+                      ></span>
+                    </Link>
+                  ) : (
+                    // 🟢 On Home page or other pages: scroll
+                    <span
+                      onClick={() => scrollToSection(item.id)}
+                      className="nav-link"
+                      style={{
+                        ...navItemStyle,
+                        color: header || isMobile ? "#000" : "#fff",
+                      }}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={(e) =>
+                        handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
+                      }
+                    >
+                      {item.label}
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: "0",
+                          left: "0",
+                          height: "2px",
+                          width: "var(--underline-width, 0%)",
+                          backgroundColor: "#A37D4C",
+                          transition: "width 0.3s ease",
+                          display: "block",
+                        }}
+                      ></span>
+                    </span>
+                  )
                 )}
               </li>
             ))}
