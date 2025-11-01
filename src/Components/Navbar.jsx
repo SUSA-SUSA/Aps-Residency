@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import LogoImage from "../assets/logo-removebg-preview.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -40,7 +40,6 @@ const Navbar = () => {
 
   const bgColor = isMobile ? "#fff" : header ? "#fff" : "transparent";
 
-  // 🔸 Reusable style for nav items
   const navItemStyle = {
     cursor: "pointer",
     fontFamily: "'Poppins', sans-serif",
@@ -52,7 +51,6 @@ const Navbar = () => {
     padding: "0.5rem 1rem",
   };
 
-  // 🔸 Function to handle hover underline animation
   const handleMouseEnter = (e) => {
     e.target.style.color = "#A37D4C";
     e.target.style.setProperty("--underline-width", "100%");
@@ -115,76 +113,75 @@ const Navbar = () => {
         {/* Nav Links */}
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav text-uppercase fw-semibold">
-  {[
-    { label: "Home", id: "home" },
-    { label: "Rooms", id: "rooms" }, // 🔸 mark as a page
-    { label: "Amenities", id: "amenities" },
-    { label: "Gallery", id: "gallery" },
-    { label: "Contact", id: "contact" },
-  ].map((item) => (
-    <li key={item.id} className="nav-item">
-      {item.isPage ? (
-        // 🏨 ROOMS — goes to separate page
-        <a
-          href="/rooms"
-          className="nav-link"
-          style={{
-            ...navItemStyle,
-            color: header || isMobile ? "#000" : "#fff",
-            textDecoration: "none",
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={(e) =>
-            handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
-          }
-        >
-          {item.label}
-          <span
-            style={{
-              position: "absolute",
-              bottom: "0",
-              left: "0",
-              height: "2px",
-              width: "var(--underline-width, 0%)",
-              backgroundColor: "#A37D4C",
-              transition: "width 0.3s ease",
-              display: "block",
-            }}
-          ></span>
-        </a>
-      ) : (
-        // 🏡 Others — smooth scroll
-        <span
-          onClick={() => scrollToSection(item.id)}
-          className="nav-link"
-          style={{
-            ...navItemStyle,
-            color: header || isMobile ? "#000" : "#fff",
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={(e) =>
-            handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
-          }
-        >
-          {item.label}
-          <span
-            style={{
-              position: "absolute",
-              bottom: "0",
-              left: "0",
-              height: "2px",
-              width: "var(--underline-width, 0%)",
-              backgroundColor: "#A37D4C",
-              transition: "width 0.3s ease",
-              display: "block",
-            }}
-          ></span>
-        </span>
-      )}
-    </li>
-  ))}
-</ul>
-
+            {[
+              { label: "Home", id: "home" },
+              { label: "Rooms", id: "rooms", isPage: true }, // <-- FIXED ✅
+              { label: "Amenities", id: "amenities" },
+              { label: "Gallery", id: "gallery" },
+              { label: "Contact", id: "contact" },
+            ].map((item) => (
+              <li key={item.id} className="nav-item">
+                {item.isPage ? (
+                  // 🏨 Rooms page link (works in GitHub Pages)
+                  <Link
+                    to="/rooms"
+                    className="nav-link"
+                    style={{
+                      ...navItemStyle,
+                      color: header || isMobile ? "#000" : "#fff",
+                      textDecoration: "none",
+                    }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={(e) =>
+                      handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
+                    }
+                  >
+                    {item.label}
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "0",
+                        left: "0",
+                        height: "2px",
+                        width: "var(--underline-width, 0%)",
+                        backgroundColor: "#A37D4C",
+                        transition: "width 0.3s ease",
+                        display: "block",
+                      }}
+                    ></span>
+                  </Link>
+                ) : (
+                  // 🏡 Scroll to section
+                  <span
+                    onClick={() => scrollToSection(item.id)}
+                    className="nav-link"
+                    style={{
+                      ...navItemStyle,
+                      color: header || isMobile ? "#000" : "#fff",
+                    }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={(e) =>
+                      handleMouseLeave(e, header || isMobile ? "#000" : "#fff")
+                    }
+                  >
+                    {item.label}
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "0",
+                        left: "0",
+                        height: "2px",
+                        width: "var(--underline-width, 0%)",
+                        backgroundColor: "#A37D4C",
+                        transition: "width 0.3s ease",
+                        display: "block",
+                      }}
+                    ></span>
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </nav>
