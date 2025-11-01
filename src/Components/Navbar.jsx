@@ -9,7 +9,6 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
-  // Detect screen width
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 992);
     handleResize();
@@ -17,17 +16,15 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Navbar shadow + background on scroll
   useEffect(() => {
     const handleScroll = () => setHeader(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Smooth scroll to section
   const scrollToSection = (id) => {
     if (location.pathname !== "/") {
-      // Go to home page and include hash
+      // Navigate to home page + hash
       window.location.href = `/#${id}`;
       return;
     }
@@ -73,11 +70,11 @@ const Navbar = () => {
       }}
     >
       <div className="container">
-        {/* Logo */}
-        <a
+        {/* ✅ Logo always links to home */}
+        <Link
+          to="/"
           className="navbar-brand d-flex align-items-center"
-          onClick={() => scrollToSection("home")}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", textDecoration: "none" }}
         >
           <img
             src={LogoImage}
@@ -96,7 +93,7 @@ const Navbar = () => {
           >
             APS RESIDENCY
           </span>
-        </a>
+        </Link>
 
         {/* Mobile Toggle */}
         <button
@@ -115,7 +112,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav text-uppercase fw-semibold">
             {[
-              { label: "Home",  path: "/" },
+              { label: "Home", id: "home" },
               { label: "Rooms", path: "/rooms" },
               { label: "Amenities", id: "amenities" },
               { label: "Gallery", id: "gallery" },
@@ -123,10 +120,12 @@ const Navbar = () => {
             ].map((item) => (
               <li key={item.label} className="nav-item">
                 {item.path ? (
-                  // 🏨 Link to rooms page
+                  // 🏨 Rooms = separate page
                   <Link
                     to={item.path}
-                    className="nav-link"
+                    className={`nav-link ${
+                      location.pathname === item.path ? "active" : ""
+                    }`}
                     style={{
                       ...navItemStyle,
                       color: header || isMobile ? "#000" : "#fff",
@@ -151,7 +150,7 @@ const Navbar = () => {
                     ></span>
                   </Link>
                 ) : (
-                  // 🏡 Scroll or redirect to home and scroll
+                  // 🏡 Scroll to section (or redirect)
                   <span
                     onClick={() => scrollToSection(item.id)}
                     className="nav-link"
